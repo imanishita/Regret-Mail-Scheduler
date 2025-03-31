@@ -37,5 +37,9 @@ public class EmailController {
         }
         return "Email not found or already sent";
     }
+    @GetMapping("/")
+    public String home() {
+        return "Backend is running successfully!";
+    }
 }
 
