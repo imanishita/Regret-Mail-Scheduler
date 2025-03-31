@@ -7,7 +7,12 @@ import animationData from "./LottieFiles/EmailLottie.json";
 const API_BASE_URL = "https://regret-mail-scheduler-1.onrender.com/api/emails";
 
 const EmailScheduler = () => {
-  const [emailData, setEmailData] = useState({ sender: "", recipient: "", subject: "", message: "" });
+  const [emailData, setEmailData] = useState({
+    sender: "",
+    recipient: "",
+    subject: "",
+    message: "",
+  });
   const [emailId, setEmailId] = useState(null);
   const [scheduledEmails, setScheduledEmails] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
@@ -35,7 +40,8 @@ const EmailScheduler = () => {
       const response = await axios.post(API_BASE_URL, emailData);
       setEmailId(response.data.id);
       setSuccessMessage("Email scheduled! You have 10 minutes to edit or cancel.");
-      setScheduledEmails((prevEmails) => [...prevEmails, response.data]); // Add the sent email to the list
+      setScheduledEmails((prevEmails) => [...prevEmails, response.data]);
+      clearForm();
     } catch (error) {
       console.error("Error sending email", error);
     }
@@ -47,6 +53,7 @@ const EmailScheduler = () => {
       await axios.put(`${API_BASE_URL}/${emailId}`, emailData);
       setSuccessMessage("Email updated successfully!");
       fetchScheduledEmails();
+      clearForm();
     } catch (error) {
       console.error("Error editing email", error);
     }
@@ -75,6 +82,10 @@ const EmailScheduler = () => {
     setEmailId(email.id);
   };
 
+  const clearForm = () => {
+    setEmailData({ sender: "", recipient: "", subject: "", message: "" });
+  };
+
   return (
     <div className="container">
       <Lottie animationData={animationData} style={{ width: 200, height: 200 }} />
@@ -83,12 +94,41 @@ const EmailScheduler = () => {
       {successMessage && <p className="success-message">{successMessage}</p>}
 
       <form onSubmit={handleSendEmail} className="email-form">
-        <input type="email" name="sender" placeholder="Your Email" value={emailData.sender} onChange={handleChange} required />
-        <input type="email" name="recipient" placeholder="Recipient" value={emailData.recipient} onChange={handleChange} required />
-        <input type="text" name="subject" placeholder="Subject" value={emailData.subject} onChange={handleChange} required />
-        <textarea name="message" placeholder="Message" value={emailData.message} onChange={handleChange} required></textarea>
-        
-        <button type="submit" className="send-btn">{emailId ? "Update Email" : "Send Email"}</button>
+        <input
+          type="email"
+          name="sender"
+          placeholder="Your Email"
+          value={emailData.sender}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="email"
+          name="recipient"
+          placeholder="Recipient"
+          value={emailData.recipient}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="subject"
+          placeholder="Subject"
+          value={emailData.subject}
+          onChange={handleChange}
+          required
+        />
+        <textarea
+          name="message"
+          placeholder="Message"
+          value={emailData.message}
+          onChange={handleChange}
+          required
+        ></textarea>
+
+        <button type="submit" className="send-btn">
+          {emailId ? "Update Email" : "Send Email"}
+        </button>
       </form>
 
       <h2>My Scheduled Emails</h2>
@@ -96,11 +136,27 @@ const EmailScheduler = () => {
         <ul className="email-list">
           {scheduledEmails.map((email) => (
             <li key={email.id}>
-              <p><strong>From:</strong> {email.sender}</p>
-              <p><strong>To:</strong> {email.recipient}</p>
-              <p><strong>Subject:</strong> {email.subject}</p>
-              <button onClick={() => loadEmailForEditing(email)} className="edit-btn">Edit</button>
-              <button onClick={() => handleCancelEmail(email.id)} className="cancel-btn">Cancel</button>
+              <p>
+                <strong>From:</strong> {email.sender}
+              </p>
+              <p>
+                <strong>To:</strong> {email.recipient}
+              </p>
+              <p>
+                <strong>Subject:</strong> {email.subject}
+              </p>
+              <button
+                onClick={() => loadEmailForEditing(email)}
+                className="edit-btn"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleCancelEmail(email.id)}
+                className="cancel-btn"
+              >
+                Cancel
+              </button>
             </li>
           ))}
         </ul>
