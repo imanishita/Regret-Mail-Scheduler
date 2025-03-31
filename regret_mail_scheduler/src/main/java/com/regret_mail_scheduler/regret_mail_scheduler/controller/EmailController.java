@@ -1,6 +1,5 @@
 package com.regret_mail_scheduler.regret_mail_scheduler.controller;
 
-
 import com.regret_mail_scheduler.regret_mail_scheduler.model.ScheduledEmail;
 import com.regret_mail_scheduler.regret_mail_scheduler.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,11 @@ public class EmailController {
 
     @Autowired
     private EmailService emailService;
+
+    @GetMapping
+    public String home() {
+        return "Backend is running successfully!";
+    }
 
     @PostMapping
     public Map<String, Long> sendEmail(@RequestBody ScheduledEmail email) {
@@ -37,9 +41,4 @@ public class EmailController {
         }
         return "Email not found or already sent";
     }
-    @GetMapping("/")
-    public String home() {
-        return "Backend is running successfully!";
-    }
 }
-
