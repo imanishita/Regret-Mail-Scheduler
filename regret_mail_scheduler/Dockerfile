@@ -1,11 +1,16 @@
-FROM maven:3.9.9-amazoncorretto-21 AS build
-WORKDIR /app
-COPY pom.xml .
-COPY src ./src
+FROM maven:3.9.9-amazoncorretto-21 AS builder
+WORKDIR /build
+# Copy only what's needed for dependency resolution
+COPY regret_mail_scheduler/pom.xml .
+RUN mvn dependency:go-offline
+
+# Copy source and build
+COPY regret_mail_scheduler/src ./src
 RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
-COPY --from=build /app/target/regret-mail-scheduler-0.0.1-SNAPSHOT.jar ./app.jar
-EXPOSE 8080 587
+# Wildcard copy to handle any version number
+COPY --from=builder /build/target/*.jar ./app.jar
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
