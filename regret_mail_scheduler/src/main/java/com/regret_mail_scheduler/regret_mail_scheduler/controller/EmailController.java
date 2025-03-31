@@ -9,7 +9,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/emails")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://regret-mail-scheduler.vercel.app/")
 public class EmailController {
 
     @Autowired
