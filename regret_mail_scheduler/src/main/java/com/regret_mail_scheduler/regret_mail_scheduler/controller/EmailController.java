@@ -5,19 +5,20 @@ import com.regret_mail_scheduler.regret_mail_scheduler.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/emails")
-@CrossOrigin(origins = "https://regret-mail-scheduler.vercel.app/")
+@CrossOrigin(origins = "https://regret-mail-scheduler-git-main-manishita-biswas-projects.vercel.app/")
 public class EmailController {
 
     @Autowired
     private EmailService emailService;
 
     @GetMapping
-    public String home() {
-        return "Backend is running successfully!";
+    public List<ScheduledEmail> getAllScheduledEmails() {
+        return emailService.getAllScheduledEmails();
     }
 
     @PostMapping
@@ -28,10 +29,13 @@ public class EmailController {
 
     @PutMapping("/{id}")
     public String editEmail(@PathVariable Long id, @RequestBody ScheduledEmail newEmail) {
-        if (emailService.updateEmail(id, newEmail)) {
-            return "Email updated successfully";
+        if (emailService.canEditEmail(id)) {
+            if (emailService.updateEmail(id, newEmail)) {
+                return "Email updated successfully";
+            }
+            return "Email not found";
         }
-        return "Email not found or already sent";
+        return "Email editing time has expired";
     }
 
     @DeleteMapping("/{id}")
