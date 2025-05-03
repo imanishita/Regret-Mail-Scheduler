@@ -16,7 +16,7 @@ within 10 minutes after sending.
 
 ---
 
-## 🚀 Features
+## Features
 
 -Engineered RESTful APIs in Spring Boot with robust CRUD operations and error handling to improve
 system reliability.
@@ -24,16 +24,16 @@ system reliability.
 
 ---
 
-## 📸 UI Preview
+##UI Preview
 
 ![Regret Mail Scheduler HomePage Preview](./public/homepage.png)
 ![Regret Mail Scheduler Edit and Cancel Mail Preview](./public/editcancelmail.png)
 
 ---
 
-## 📦 Getting Started
+##  Getting Started
 
-### 🖥️ Frontend
+### Frontend
 
 ```bash
 # Clone the repository
