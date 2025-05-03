@@ -1,12 +1,47 @@
-# React + Vite
+# Regret Mail Scheduler
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Designed and deployed a full-stack web application **Regret Mail Scheduler** enabling users to edit or cancel scheduled emails
+within 10 minutes after sending.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔧 Tech Stack
 
-## Expanding the ESLint configuration
+### Frontend
+- [React (Vite)](https://vitejs.dev/)
+- CSS
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Backend
+-  [Spring Boot](https://spring.io/projects/spring-boot)
+
+---
+
+## 🚀 Features
+
+-Engineered RESTful APIs in Spring Boot with robust CRUD operations and error handling to improve
+system reliability.
+-Integrated Lottie animations to enhance user experience and improve visual feedback.
+
+---
+
+## 📸 UI Preview
+
+![Regret Mail Scheduler HomePage Preview](./public/homepage.png)
+![Regret Mail Scheduler Edit and Cancel Mail Preview](./public/editcancelmail.png)
+
+---
+
+## 📦 Getting Started
+
+### 🖥️ Frontend
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/regret-mail-scheduler.git
+cd regret-mail-scheduler
+
+# Install frontend dependencies
+npm install
+
+# Run the frontend (Vite dev server)
+npm run dev
